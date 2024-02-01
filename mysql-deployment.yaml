@@ -1,38 +1,22 @@
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysql-secret
-type: Opaque
-data:
-  MYSQL_ROOT_PASSWORD: cm9vdHVzZXIxMjM=
-  MYSQL_PASSWORD: d2lraXVzZXIxMjM=
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mysql-configmap
-data:
-  MYSQL_DATABASE: wikidatabase
-  MYSQL_USER: wiki
----
 kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: mysql-deployment
   labels:
     name: mysql-deployment
-    type: db
+    app: mysql-aks-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
       name: mysql-pod
+      app: mysql-aks-deployment
   template:
     metadata:
       name: mysql-pod
       labels:
         name: mysql-pod
+        app: mysql-aks-deployment
     spec:
       containers:
         - name: mysql-container
@@ -68,5 +52,16 @@ spec:
             limits:
               memory: "1Gi"
               cpu: "1"
-          
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-data
+  #          - mountPath: /docker-entrypoint-initdb.d
+  #            name: mysql-initdb
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+#        - name: mysql-initdb
+#          configMap:
+#            name: mysql-configmap
           

@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+  labels:
+    name: mysql-service
+    app: mysql-aks-deployment
+spec:
+  type: ClusterIP
+  selector:
+    name: mysql-pod
+    app: mysql-aks-deployment
+  ports:
+    - port: 3306
+      targetPort: 3306
