@@ -8,8 +8,3 @@ metadata:
 data:
   MYSQL_DATABASE: wikidatabase
   MYSQL_USER: wiki
-#  init.sql: |
-#    CREATE USER 'wiki'@'%' IDENTIFIED BY 'wikiuser123';
-#    CREATE DATABASE wikidatabase;
-#    GRANT ALL PRIVILEGES ON wikidatabase.* TO 'wiki'@'%';
-#    FLUSH PRIVILEGES;
