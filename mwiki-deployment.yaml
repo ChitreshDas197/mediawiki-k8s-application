@@ -1,0 +1,43 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mediawiki-deployment
+  labels:
+    name: mediawiki-deployment
+    app: mediawiki-aks-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mediawiki-pod
+      app: mediawiki-aks-deployment    
+  template:
+    metadata:
+      name: mediawiki-pod
+      labels:
+        name: mediawiki-pod
+        app: mediawiki-aks-deployment
+    spec:
+      containers:
+        - name: mwiki
+          image: mediawiki
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "0.5"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+          volumeMounts:
+            - mountPath: /var/www/html/images
+              name: mwiki-data
+            - mountPath: /var/www/html/LocalSettings.php
+              name: mwiki-data
+      volumes:
+        - name: mwiki-data
+          persistentVolumeClaim:
+            claimName: mwiki-pvc      
+    

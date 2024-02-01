@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mwiki-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: mw-aks-azure-fileshare
+  resources:
+    requests:
+      storage: 10Gi

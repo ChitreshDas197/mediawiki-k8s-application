@@ -9,7 +9,6 @@ spec:
   type: ClusterIP
   selector:
     name: mysql-pod
-    app: mysql-aks-deployment
   ports:
     - port: 3306
       targetPort: 3306
