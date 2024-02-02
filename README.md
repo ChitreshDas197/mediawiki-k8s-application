@@ -84,4 +84,6 @@
               - Deploy Storage Class (Unpack build archive from CI; Deploy only the Storage Class Manifest using kubectl)
               - Deploy DB Chart (Unpack build archive from CI; Deploy only the db-chart using Helm)
               - Deploy App Chart (Unpack build archive from CI; Deploy only the app-chart using Helm)
+  ![App Deploy Release Pipeline](https://github.com/ChitreshDas197/mediawiki-k8s-application/assets/65863286/4dd48e58-d5ca-44fd-8361-168887b7efd0)
+
     - Infra Repo - Refer the Infra repo Readme.md
