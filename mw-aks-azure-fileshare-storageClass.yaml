@@ -4,6 +4,7 @@ metadata:
   name: mw-aks-azure-fileshare
 provisioner: file.csi.azure.com
 reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
 mountOptions:
   - dir_mode=0777

@@ -1,0 +1,73 @@
+trigger:
+- master
+
+stages:
+  - stage: Build
+    jobs:
+    - job: Build
+      pool: selfAgents 
+      steps:
+      - task: CmdLine@2
+        displayName: Install ZIP and Unzip utility
+        inputs:
+          script: 'sudo apt update -y && sudo apt install zip -y && sudo apt install unzip -y'
+      - task: HelmInstaller@0
+        displayName: Install Helm and Kubectl
+        inputs:
+          helmVersion: '3.13.3'
+          checkLatestHelmVersion: false
+      - task: Kubernetes@1
+        displayName: Storage Class Dry Run
+        inputs:
+          connectionType: 'Azure Resource Manager'
+          azureSubscriptionEndpoint: 'Free Trial(5635a262-c054-46d0-9904-c079ed441435)'
+          azureResourceGroup: 'supportRG'
+          kubernetesCluster: 'aks-my'
+          namespace: 'default'
+          command: 'create'
+          useConfigurationFile: true
+          configuration: './mw-aks-azure-fileshare-storageClass.yaml'
+          arguments: '--dry-run -o yaml'
+          secretType: 'dockerRegistry'
+          containerRegistryType: 'Azure Container Registry'
+      - task: HelmDeploy@0
+        displayName: Dry run for DB deployment
+        inputs:
+          connectionType: 'Azure Resource Manager'
+          azureSubscription: 'Free Trial(5635a262-c054-46d0-9904-c079ed441435)'
+          azureResourceGroup: 'supportRG'
+          kubernetesCluster: 'aks-my'
+          namespace: 'default'
+          command: 'install'
+          chartType: 'Name'
+          chartName: 'mwiki-db-chart'
+          releaseName: 'mwiki-1'
+          arguments: '--dry-run'
+      - task: HelmDeploy@0
+        displayName: Dry run for App deployment
+        inputs:
+          connectionType: 'Azure Resource Manager'
+          azureSubscription: 'Free Trial(5635a262-c054-46d0-9904-c079ed441435)'
+          azureResourceGroup: 'supportRG'
+          kubernetesCluster: 'aks-my'
+          namespace: 'default'
+          command: 'install'
+          chartType: 'Name'
+          chartName: 'mwiki-app-chart'
+          releaseName: 'mwiki-1'
+          arguments: '--dry-run'
+
+      - task: ArchiveFiles@2
+        displayName: Archive Files
+        inputs:
+          rootFolderOrFile: '$(Build.SourcesDirectory)/'
+          includeRootFolder: false
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          replaceExistingArchive: true
+      - task: PublishBuildArtifacts@1
+        displayName: Publish archive
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: '$(Build.BuildId)-Build'
+          publishLocation: 'Container'
