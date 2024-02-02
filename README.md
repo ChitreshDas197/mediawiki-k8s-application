@@ -13,8 +13,8 @@
 
 ## Approach
 - I have used separate repos for Infra and Application to fecilitate separate CI/CD for both
-- Infra Repo url:
-- Application Repo url:
+- Infra Repo url: https://github.com/ChitreshDas197/mediawiki-k8s-infra.git
+- Application Repo url: https://github.com/ChitreshDas197/mediawiki-k8s-application.git
 
 ## Application Architecture on AKS Cluster
 
