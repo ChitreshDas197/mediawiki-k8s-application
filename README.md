@@ -72,4 +72,16 @@
               ```bash
                 kubectl create <manifest.yaml> --dry-run -o yaml
               ```
-
+          - Create dry run for both Helm charts
+              ```bash
+                helm install <release_name> /path/to/chart --dry-run
+              ```
+          - Archive the directory and Publish it on the pipeline
+    - Infra Repo - Refer the Infra repo Readme.md
+    ## Release Pipeline
+    - Application Repo
+        - Create three different stages
+              - Deploy Storage Class (Unpack build archive from CI; Deploy only the Storage Class Manifest using kubectl)
+              - Deploy DB Chart (Unpack build archive from CI; Deploy only the db-chart using Helm)
+              - Deploy App Chart (Unpack build archive from CI; Deploy only the app-chart using Helm)
+    - Infra Repo - Refer the Infra repo Readme.md
