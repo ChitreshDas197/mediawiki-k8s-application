@@ -51,12 +51,8 @@
   ### Create Service Connection on Azure DevOps
   - Go to project settings -> Service Connections -> Create new -> Selecte "Azure Resource Manager"
   - Select the details partainting to your account (Client ID, Tenant ID, Client Secret, Subscription ID)
-  - Create a dry run for the Storage Class Deployment to verify on the console
-
-```bash
-  kubectl create <manifest.yaml> --dry-run -o yaml
-```
- 
+  - Create
+    
   ### Add the Azure VM (or vm of choice) as agent on Azure DevOps
   - Project Settings -> Agents -> Agent Pools -> Create new -> Type "Self Hosted"
   - Open the newly created Agent Pool
@@ -71,4 +67,8 @@
       - ./mwiki-db-chart and ./mwiki-app-chart are the Helm Charts used to deploy the db and the app components/k8s objects
       - In this pipeline I have basically run few validations, tool installations and packaging and publishing
           - Install Helm, Kubectl
-          - Dry Nun 
+          - Create a dry run for the Storage Class Deployment to verify on the console
+
+```bash
+  kubectl create <manifest.yaml> --dry-run -o yaml
+```
