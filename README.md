@@ -1,4 +1,4 @@
-# mediawiki-k8s-application
+# MEDIAWIKI_K8S_APPLICATION_DEPLOYMENT
 - This repo talks about deplopying mediawiki application on a kubernetes cluster
 - I have used Azure cloud as preferred infra platform
 - The infra (AKS Cluster, Azure Resource Group etc) has been provisioned using Terraform IaC
