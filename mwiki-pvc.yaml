@@ -8,4 +8,4 @@ spec:
   storageClassName: mw-aks-azure-fileshare
   resources:
     requests:
-      storage: 10Gi
+      storage: "10Gi"

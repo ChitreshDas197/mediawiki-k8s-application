@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mediawiki-service
+  name: mwiki-service
   labels:
-    name: mediawiki-service
-    app: mediawiki-aks-deployment
+    name: mwiki-service
+    app: mwiki-aks-deployment
 spec:
   type: LoadBalancer
   ports:
@@ -12,3 +12,4 @@ spec:
     targetPort: 80
   selector:
     name: mediawiki-pod
+  

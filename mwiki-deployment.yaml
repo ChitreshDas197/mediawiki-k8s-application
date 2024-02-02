@@ -1,9 +1,9 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: mediawiki-deployment
+  name: mwiki-deployment
   labels:
-    name: mediawiki-deployment
+    name: mwiki-deployment
     app: mediawiki-aks-deployment
 spec:
   replicas: 1
@@ -13,24 +13,23 @@ spec:
       app: mediawiki-aks-deployment    
   template:
     metadata:
-      name: mediawiki-pod
       labels:
         name: mediawiki-pod
         app: mediawiki-aks-deployment
     spec:
       containers:
-        - name: mwiki
+        - name: mwiki-container
           image: mediawiki
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "0.5"
+              memory: "512Gi"
+              cpu: "1"
             limits:
               memory: "1Gi"
-              cpu: "1"
+              cpu: "1.5"
           volumeMounts:
             - mountPath: /var/www/html/images
               name: mwiki-data
