@@ -21,8 +21,8 @@ stages:
         inputs:
           connectionType: 'Azure Resource Manager'
           azureSubscriptionEndpoint: 'Free Trial(5635a262-c054-46d0-9904-c079ed441435)'
-          azureResourceGroup: 'supportRG'
-          kubernetesCluster: 'aks-my'
+          azureResourceGroup: 'mediawiki-devops-rg'
+          kubernetesCluster: 'mediawiki-k8s-cluster'
           namespace: 'default'
           command: 'create'
           useConfigurationFile: true
@@ -35,8 +35,8 @@ stages:
         inputs:
           connectionType: 'Azure Resource Manager'
           azureSubscription: 'Free Trial(5635a262-c054-46d0-9904-c079ed441435)'
-          azureResourceGroup: 'supportRG'
-          kubernetesCluster: 'aks-my'
+          azureResourceGroup: 'mediawiki-devops-rg'
+          kubernetesCluster: 'mediawiki-k8s-cluster'
           namespace: 'default'
           command: 'install'
           chartType: 'Name'
@@ -48,8 +48,8 @@ stages:
         inputs:
           connectionType: 'Azure Resource Manager'
           azureSubscription: 'Free Trial(5635a262-c054-46d0-9904-c079ed441435)'
-          azureResourceGroup: 'supportRG'
-          kubernetesCluster: 'aks-my'
+          azureResourceGroup: 'mediawiki-devops-rg'
+          kubernetesCluster: 'mediawiki-k8s-cluster'
           namespace: 'default'
           command: 'install'
           chartType: 'Name'
