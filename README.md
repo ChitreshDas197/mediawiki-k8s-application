@@ -51,7 +51,11 @@
   ### Create Service Connection on Azure DevOps
   - Go to project settings -> Service Connections -> Create new -> Selecte "Azure Resource Manager"
   - Select the details partainting to your account (Client ID, Tenant ID, Client Secret, Subscription ID)
-  - Create
+  - Create a dry run for the Storage Class Deployment to verify on the console
+
+```bash
+  kubectl create <manifest.yaml> --dry-run -o yaml
+```
  
   ### Add the Azure VM (or vm of choice) as agent on Azure DevOps
   - Project Settings -> Agents -> Agent Pools -> Create new -> Type "Self Hosted"
@@ -59,3 +63,12 @@
   - Add New Agent
   - SSH into your VM and follow the guides given on the Azure DevOps page
   - I have named my pool "selfAgents" and added that as "pool" on the pipeline Jobs
+ 
+  ## CI Pipeline
+  - Application Repo:
+      - Directory root contains the CI Pipeline YAML which used for the pipeline
+      - Directory root contains the manifest for the storage class creation which is common among both deployments
+      - ./mwiki-db-chart and ./mwiki-app-chart are the Helm Charts used to deploy the db and the app components/k8s objects
+      - In this pipeline I have basically run few validations, tool installations and packaging and publishing
+          - Install Helm, Kubectl
+          - Dry Nun 
