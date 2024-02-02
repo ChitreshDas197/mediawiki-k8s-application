@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+  labels:
+    name: {{ .Release.Name }}-mysql-service
+    app: {{ .Release.Name }}-mysql-aks-deployment
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    name: {{ .Release.Name }}-mysql-pod
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}

@@ -1,27 +1,26 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: mysql-deployment
+  name: {{ .Release.Name }}-mysql-deployment
   labels:
-    name: mysql-deployment
-    app: mysql-aks-deployment
+    name: {{ .Release.Name }}-mysql-deployment
+    app: {{ .Release.Name }}-mysql-aks-deployment
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      name: mysql-pod
-      app: mysql-aks-deployment
+      name: {{ .Release.Name }}-mysql-pod
+      app: {{ .Release.Name }}-mysql-aks-deployment
   template:
     metadata:
-      name: mysql-pod
       labels:
-        name: mysql-pod
-        app: mysql-aks-deployment
+        name: {{ .Release.Name }}-mysql-pod
+        app: {{ .Release.Name }}-mysql-aks-deployment
     spec:
       containers:
-        - name: mysql-container
-          image: mysql:latest
-          imagePullPolicy: IfNotPresent
+        - name: {{ .Release.Name }}-mysql-container
+          image: {{ .Values.image.repository }}:latest
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 3306
           env:
@@ -47,16 +46,16 @@ spec:
                   key: MYSQL_PASSWORD
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "0.5"
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
             limits:
-              memory: "1Gi"
-              cpu: "1"
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: mysql-data
       volumes:
         - name: mysql-data
           persistentVolumeClaim:
-            claimName: mysql-pvc
+            claimName: {{ .Release.Name }}-mysql-pvc
           

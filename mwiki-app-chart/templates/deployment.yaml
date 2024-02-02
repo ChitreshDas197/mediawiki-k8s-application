@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Release.Name }}-mwiki-deployment
+  labels:
+    name: {{ .Release.Name }}-mwiki-deployment
+    app: {{ .Release.Name }}-mediawiki-aks-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-mediawiki-pod
+      app: {{ .Release.Name }}-mediawiki-aks-deployment    
+  template:
+    metadata:
+      labels:
+        name: {{ .Release.Name }}-mediawiki-pod
+        app: {{ .Release.Name }}-mediawiki-aks-deployment
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-mwiki-container
+          image: {{ .Values.image.repository }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
+          volumeMounts:
+            - mountPath: /var/www/html/images
+              name: mwiki-data
+            - mountPath: /var/www/html/LocalSettings.php
+              name: mwiki-data
+      volumes:
+        - name: mwiki-data
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-mwiki-pvc     
+    
