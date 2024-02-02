@@ -69,6 +69,7 @@
           - Install Helm, Kubectl
           - Create a dry run for the Storage Class Deployment to verify on the console
 
-```bash
-  kubectl create <manifest.yaml> --dry-run -o yaml
-```
+              ```bash
+                kubectl create <manifest.yaml> --dry-run -o yaml
+              ```
+
