@@ -1,5 +1,5 @@
 # MEDIAWIKI_K8S_APPLICATION_DEPLOYMENT
-- This repo talks about deplopying mediawiki application on a kubernetes cluster
+- This repo talks about deploying mediawiki application on a kubernetes cluster
 - I have used Azure cloud as preferred infra platform
 - The infra (AKS Cluster, Azure Resource Group etc) has been provisioned using Terraform IaC
 - Database (MySQL) and Web Server App (Mediawiki) has been deployed to Kubernetes using Helm Charts
@@ -12,7 +12,7 @@
 - I have used separate release pipeline to include approval gates and conditions easily
 
 ## Approach
-- I have used separate repos for Infra and Application to fecilitate separate CI/CD for both
+- I have used separate repos for Infra and Application to facilitate separate CI/CD for both
 - Infra Repo url: https://github.com/ChitreshDas197/mediawiki-k8s-infra.git
 - Application Repo url: https://github.com/ChitreshDas197/mediawiki-k8s-application.git
 
@@ -35,7 +35,7 @@
   - Note down the "client ID" and "tenant ID" from the Overviews page of this newly registered app
   - Click on "Add a certificate or secret" from "Client Credentials" field -> Create a new secret and node the Client Secret from the value field somewhere
   - Go to "Subscription" -> Choose your subscipiton -> Note down the subsciption ID
-  - Under "Access Control (IAM)" on the lefr blade -> "Add" -> "Add Role Assignment"
+  - Under "Access Control (IAM)" on the left blade -> "Add" -> "Add Role Assignment"
   - Under "Role" -> "Privileges Administrator Role" tab -> Choose "Contributor"
   - Under "Members" -> "Assign Access to" -> "User, group or service principal" -> Select the Registered app -> Hit "Ok"
 
