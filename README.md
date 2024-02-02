@@ -11,6 +11,11 @@
 - Alternatively you can create the CD within the Pipeline section as an additional Job maybe named 'Deploy'
 - I have used separate release pipeline to include approval gates and conditions easily
 
+## Approach
+- I have used separate repos for Infra and Application to fecilitate separate CI/CD for both
+- Infra Repo url:
+- Application Repo url:
+
 ## Application Architecture on AKS Cluster
 
 
@@ -33,4 +38,24 @@
   - Under "Access Control (IAM)" on the lefr blade -> "Add" -> "Add Role Assignment"
   - Under "Role" -> "Privileges Administrator Role" tab -> Choose "Contributor"
   - Under "Members" -> "Assign Access to" -> "User, group or service principal" -> Select the Registered app -> Hit "Ok"
-  
+
+  ### Azure Storage account and Blob creation
+  - Search "Storage Account" -> "Create" -> Fill in the details -> "Reveiw and Create" (Enable Blob Versioning under Data Protection tab)
+  - Go to the newly created Storage Account -> "Containers" under "Data Storage" -> "+ Container" -> Fill in details and "Create"
+  - Note down the "Resource Group", "Storage Account", and "Container" names which are used in the "backend.tf" file on the Infra Repo
+
+  ### Azure VM Creation
+  - Search for "Azure Virtual machine" -> "Create New" -> "Fill in details" (Use a linux image) -> Review+Create
+  - Ensure to enable SSH access
+ 
+  ### Create Service Connection on Azure DevOps
+  - Go to project settings -> Service Connections -> Create new -> Selecte "Azure Resource Manager"
+  - Select the details partainting to your account (Client ID, Tenant ID, Client Secret, Subscription ID)
+  - Create
+ 
+  ### Add the Azure VM (or vm of choice) as agent on Azure DevOps
+  - Project Settings -> Agents -> Agent Pools -> Create new -> Type "Self Hosted"
+  - Open the newly created Agent Pool
+  - Add New Agent
+  - SSH into your VM and follow the guides given on the Azure DevOps page
+  - I have named my pool "selfAgents" and added that as "pool" on the pipeline Jobs
