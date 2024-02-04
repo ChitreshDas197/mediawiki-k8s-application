@@ -6,5 +6,5 @@ metadata:
     name: mysql-data-store
     app: mysql-aks-deployment
 data:
-  MYSQL_DATABASE: wikidatabase
-  MYSQL_USER: wiki
+  MYSQL_DATABASE: #put your database name to be used for Mediawiki
+  MYSQL_USER: #put the db user name for the above database
